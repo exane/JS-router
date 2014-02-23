@@ -4,18 +4,18 @@ js_router
 Syntax:
 
 Construct: 
-    new Router( [optional] string viewSelector );
+    new Router( [optional] string viewSelector );<br>
     if no parameter are given, default would be "body" as standard selector.
     
-Methodes:
-    .when( string routeUrl, string templateUrl )
-    .otherwise( string templateUrl )
+Methodes:<br>
+    .when( string routeUrl, string templateUrl )<br>
+    .otherwise( string templateUrl )<br>
     
     
-example:
-    var route = new Router("#view");
-    route.when("home", "template/home.html")
-         .when("news", "template/news.html")
-         .when("about", "template/about.html")
-         .when("test", "template/test.html")
-         .otherwise("template/404.html");
+example:<br>
+    var route = new Router("#view");<br>
+    route.when("home", "template/home.html")<br>
+         .when("news", "template/news.html")<br>
+         .when("about", "template/about.html")<br>
+         .when("test", "template/test.html")<br>
+         .otherwise("template/404.html");<br>
