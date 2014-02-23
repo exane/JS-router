@@ -62,25 +62,21 @@ var Router = (function(){
 
     r.refreshView = function(){
         var url = this.getRoute();
+        var template = this._route.otherwise;
 
         for(var i = 0; i < this._route.routeUrl.length; i++) {
             if(url != this._route.routeUrl[i]) continue;
 
-            var template = this._route.templateUrl[i];
-            this.loadTemplate(url, template);
-
-            return 0;
+            template = this._route.templateUrl[i];
         }
 
-        var template = this._route.otherwise;
         this.loadTemplate(url, template);
 
-        return 1;
+        return 0;
 
     };
 
     r.storeCache = function(name, data){
-
         this._cache[name] = data;
     };
 
