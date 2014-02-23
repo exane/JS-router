@@ -3,7 +3,7 @@ js_router
 
 Syntax:
 
-Construct: 
+Construct: <br>
     new Router( [optional] string viewSelector );<br>
     if no parameter are given, default would be "body" as standard selector.
     
