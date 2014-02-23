@@ -18,21 +18,6 @@ var Router = (function(){
         $(window).on("hashchange", {ctx: this}, r.onHashChange)
     };
 
-    r.filterUrl = function(hashUrl, isTrimmed){
-        var str;
-
-        if(typeof isTrimmed == "undefined")
-            isTrimmed = false;
-        if(typeof hashUrl == "undefined")
-            str = this.trimHashUrl(this.getHash());
-        else if(isTrimmed)
-            str = hashUrl;
-        else
-            str = this.trimHashUrl(hashUrl);
-
-        return str;
-    };
-
     r.getHash = function(){
         return window.location.hash;
     };
@@ -42,17 +27,16 @@ var Router = (function(){
     };
 
     r.getRoute = function(){
-        return this.filterUrl();
+        return this.trimHashUrl(this.getHash());
     };
 
     r.when = function(routeUrl, templateUrl){
-        var route = this.filterUrl(routeUrl, true);
         var urlRoute = this.trimHashUrl(this.getHash());
 
         this._route.routeUrl[this._route.routeUrl.length] = routeUrl;
         this._route.templateUrl[this._route.templateUrl.length] = templateUrl;
 
-        if(route != urlRoute) return this;
+        if(routeUrl != urlRoute) return this;
 
         this.loadTemplate(routeUrl, templateUrl);
         this._resolved = true;
