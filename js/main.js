@@ -6,4 +6,4 @@ $(window).ready(function(){
         .when("about", "template/about.html")
         .when("test", "template/test.html")
         .otherwise("template/404.html");
-})();
+});

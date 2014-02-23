@@ -3336,7 +3336,7 @@
                 // Handle state
                 if(stateString){
                     list.add(function(){
-                        // state = [ resolved | rejected ]
+                        // state = [ _resolved | rejected ]
                         state = stateString;
 
                         // [ reject_list | resolve_list ].disable; progress_list.lock
@@ -3392,7 +3392,7 @@
 
                 progressValues, progressContexts, resolveContexts;
 
-            // add listeners to Deferred subordinates; treat others as resolved
+            // add listeners to Deferred subordinates; treat others as _resolved
             if(length > 1){
                 progressValues = new Array(length);
                 progressContexts = new Array(length);
@@ -4098,7 +4098,7 @@
         clearQueue: function(type){
             return this.queue(type || "fx", []);
         },
-        // Get a promise resolved when queues of a certain type
+        // Get a promise _resolved when queues of a certain type
         // are emptied (fx is the type by default)
         promise: function(type, obj){
             var tmp,
@@ -6215,7 +6215,7 @@
                 // A tribute to the "awesome hack by Dean Edwards"
                 // Chrome < 17 and Safari 5.0 uses "computed value" instead of "used value" for margin-right
                 // Safari 5.1.7 (at least) returns percentage for a larger set of values, but width seems to be reliably pixels
-                // this is against the CSSOM draft spec: http://dev.w3.org/csswg/cssom/#resolved-values
+                // this is against the CSSOM draft spec: http://dev.w3.org/csswg/cssom/#_resolved-values
                 if(rnumnonpx.test(ret) && rmargin.test(name)){
 
                     // Remember the original values

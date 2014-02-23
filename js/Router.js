@@ -1,38 +1,39 @@
 var Router = (function(){
 
-    var Router = function(){
-        this.resolved = false;
-        this.route = {
+    var Router = function(viewSelector){
+        this._resolved = false;
+        this._route = {
             routeUrl: [],
             templateUrl: [],
             otherwise: ""
         };
-
+        this._cache = {};
+        this._view = viewSelector || "#view";
 
         this.init();
     };
     var r = Router.prototype;
 
     r.init = function(){
-        localStorage.clear();
-        $(window).on("hashchange", {ctx: this},r.onHashChange)
+        $(window).on("hashchange", {ctx: this}, r.onHashChange)
     };
 
     r.filterUrl = function(hashUrl, isTrimmed){
-        if(typeof isTrimmed == "undefined") isTrimmed = false;
+        var str;
 
+        if(typeof isTrimmed == "undefined")
+            isTrimmed = false;
         if(typeof hashUrl == "undefined")
-            var str = this.trimHashUrl(this.getHash());
+            str = this.trimHashUrl(this.getHash());
         else if(isTrimmed)
-            var str = hashUrl;
+            str = hashUrl;
         else
-            var str = this.trimHashUrl(hashUrl);
+            str = this.trimHashUrl(hashUrl);
 
         var result = [];
         var a = 0;
         for(var i = 0; i < str.length; i++) {
             if(str[i] == "/" || i + 1 == str.length){
-
                 if(str[i] == "/")
                     result[result.length] = str.slice(a, i);
                 else
@@ -60,21 +61,21 @@ var Router = (function(){
         var route = this.filterUrl(routeUrl, true);
         var urlRoute = this.trimHashUrl(this.getHash());
 
-        this.route.routeUrl[this.route.routeUrl.length] = routeUrl;
-        this.route.templateUrl[this.route.templateUrl.length] = templateUrl;
+        this._route.routeUrl[this._route.routeUrl.length] = routeUrl;
+        this._route.templateUrl[this._route.templateUrl.length] = templateUrl;
 
         if(route != urlRoute) return this;
 
         this.loadTemplate(routeUrl, templateUrl);
-        this.resolved = true;
+        this._resolved = true;
 
         return this;
     };
 
     r.otherwise = function(template){
-        this.route.otherwise = template;
-        if(this.resolved){
-            this.resolved = false;
+        this._route.otherwise = template;
+        if(this._resolved){
+            this._resolved = false;
             return 0;
         }
 
@@ -91,16 +92,16 @@ var Router = (function(){
         var that = this;
         var url = this.getRoute();
 
-        for(var i=0; i<this.route.routeUrl.length; i++){
-            if(url != this.route.routeUrl[i]) continue;
+        for(var i = 0; i < this._route.routeUrl.length; i++) {
+            if(url != this._route.routeUrl[i]) continue;
 
-            var template = this.route.templateUrl[i];
+            var template = this._route.templateUrl[i];
             this.loadTemplate(url, template);
 
             return 0;
         }
 
-        var template = this.route.otherwise;
+        var template = this._route.otherwise;
         this.loadTemplate(url, template);
 
         return 1;
@@ -108,34 +109,36 @@ var Router = (function(){
     };
 
     r.storeCache = function(name, data){
-        localStorage[name] = data;
+
+        this._cache[name] = data;
     };
 
     r.loadCache = function(name){
-        return localStorage[name];
+        return this._cache[name];
     };
 
     r.isCached = function(name){
-        return localStorage[name];
+        return this._cache[name];
     };
 
     r.loadTemplate = function(name, template){
         var that = this;
         $.ajax({
             url: template,
-            dataType: "text",
+            type: "GET",
+            dataType: "html",
             beforeSend: function(){
-                if(that.isCached(name)) {
-                    $("#view *").remove();
-                    $("#view").append(that.loadCache(name));
+                if(that.isCached(name)){
+                    $(that._view + " *").remove();
+                    $(that._view).append(that.loadCache(name));
                     return false;
                 }
                 return true;
             },
             success: function(data){
                 that.storeCache(name, data);
-                $("#view *").remove();
-                $("#view").append(data);
+                $(that._view + " *").remove();
+                $(that._view).append(data);
             }
         });
     };
@@ -143,7 +146,7 @@ var Router = (function(){
     r.copyArray = function(arr){
         var res = [];
 
-        for(var i=0; i<arr.length; i++)
+        for(var i = 0; i < arr.length; i++)
             res[i] = arr[i];
 
         return res;
