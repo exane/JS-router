@@ -8,7 +8,7 @@ var Router = (function(){
             otherwise: ""
         };
         this._cache = {};
-        this._view = viewSelector || "#view";
+        this._view = viewSelector || "body";
 
         this.init();
     };

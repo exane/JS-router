@@ -1,5 +1,5 @@
 $(window).ready(function(){
-    var route = new Router();
+    var route = new Router("#view");
 
     route.when("home", "template/home.html")
         .when("news", "template/news.html")
