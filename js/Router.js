@@ -129,16 +129,14 @@ var Router = (function(){
             dataType: "html",
             beforeSend: function(){
                 if(that.isCached(name)){
-                    $(that._view + " *").remove();
-                    $(that._view).append(that.loadCache(name));
+                    $(that._view).empty().append(that.loadCache(name));
                     return false;
                 }
                 return true;
             },
             success: function(data){
                 that.storeCache(name, data);
-                $(that._view + " *").remove();
-                $(that._view).append(data);
+                $(that._view).empty().append(data);
             }
         });
     };
