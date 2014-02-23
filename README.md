@@ -1,5 +1,7 @@
-js_router (requires jQuery)
+JS router 
 =========
+
+(requires jQuery)
 
 Syntax:
 
