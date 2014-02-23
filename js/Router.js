@@ -30,19 +30,7 @@ var Router = (function(){
         else
             str = this.trimHashUrl(hashUrl);
 
-        var result = [];
-        var a = 0;
-        for(var i = 0; i < str.length; i++) {
-            if(str[i] == "/" || i + 1 == str.length){
-                if(str[i] == "/")
-                    result[result.length] = str.slice(a, i);
-                else
-                    result[result.length] = str.slice(a, i + 1);
-                a = i + 1;
-            }
-        }
-
-        return result;
+        return str;
     };
 
     r.getHash = function(){

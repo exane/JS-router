@@ -3,7 +3,9 @@ $(window).ready(function(){
 
     route.when("home", "template/home.html")
         .when("news", "template/news.html")
+        .when("news/today", "template/today.html")
         .when("about", "template/about.html")
         .when("test", "template/test.html")
         .otherwise("template/404.html");
+
 });
