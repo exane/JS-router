@@ -89,7 +89,6 @@ var Router = (function(){
     };
 
     r.refreshView = function(){
-        var that = this;
         var url = this.getRoute();
 
         for(var i = 0; i < this._route.routeUrl.length; i++) {
@@ -140,16 +139,6 @@ var Router = (function(){
             }
         });
     };
-
-    r.copyArray = function(arr){
-        var res = [];
-
-        for(var i = 0; i < arr.length; i++)
-            res[i] = arr[i];
-
-        return res;
-    };
-
 
     return Router;
 
