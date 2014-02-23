@@ -1,4 +1,4 @@
-js_router
+js_router (requires jQuery)
 =========
 
 Syntax:
