@@ -5,7 +5,7 @@ Syntax:
 
 Construct: <br>
     new Router( [optional] string viewSelector );<br>
-    if no parameter are given, default would be "body" as standard selector.
+    if no parameter given, default would be "body" as standard selector.
     
 Methodes:<br>
     .when( string routeUrl, string templateUrl )<br>
